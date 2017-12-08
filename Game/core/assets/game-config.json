@@ -1,0 +1,29 @@
+{
+	"initialValue": 7,
+	"savegame": {
+		"saveStoreName": "GameSaves",
+		"autoSaveSlot": "autoSave"
+	},
+
+	"backgroundBuilder": {
+		"textureName": "t-dot",
+		"namePrefix": "background-",
+		"transparentPrefix": "alpha-"
+	},
+	"borderBuilder": {
+		"texturePrefix": "t-",
+		"namePrefix": "border",
+		"slimSuffix": "-slim",
+		
+		"topSuffix": "-top",
+		"leftSuffix": "-left",
+		"bottomSuffix": "-bottom",
+		"rightSuffix": "-right"
+	},
+	"dividerBuilder": {
+		"texturePrefix": "t-",
+		"textureName": "line",
+		"dividerName": "divider",
+		"slimSuffix": "-slim"
+	}
+}

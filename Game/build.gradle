@@ -1,0 +1,96 @@
+// Idle Sort Game Parent
+
+ext {
+    workingTitle = "WorkingTitle"
+	
+	gradleTarget = '3.2.1'
+	gwtGradleTarget = '0.6'
+	javaTarget = '1.8'
+	junitTarget = '4.12'
+    gwtTarget = '2.8.0'
+	
+    gdxTarget = '1.9.6'
+    artemisTarget = '2.1.0'
+	
+    jacksonTarget = '2.8.8'
+    jacksonGwtTarget = '0.14.2'
+	
+    upseilGdxTarget = '0.1.0-SNAPSHOT'
+	upseilGdxPath = '../UpseilGDX/upseilgdx'
+}
+
+apply from: "$upseilGdxPath/upseilgdx-setup.gradle"
+
+allprojects {
+    apply plugin: "jacoco"
+    
+    group = 'com.upseil.idlesort'
+    version = '0.1.0'
+}
+
+task testCoverage(type: JacocoReport, group:'verification') {
+	description 'Runs the unit tests and creates the coverage report.'
+	dependsOn subprojects*.test
+
+    executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
+
+    // Add all relevant sourcesets from the subprojects 
+    subprojects.each {
+       sourceSets it.sourceSets.main
+    }
+
+    reports {
+		xml.enabled true
+		html.enabled true
+		html.destination "${buildDir}/reports/jacoco"
+		csv.enabled false
+    }
+}
+
+// UpseilGDX Tooling
+
+/** pixelateFonts Configuration
+ *   Filters every pixel in the fonts .png file:
+ *     if pixel.rgb == filter.rgb && pixel.alpha >= alphaThreshold {
+ *       pixel.rgba = filter.rgba
+ *     } else {
+ *       pixel.rgba = transparent.rgba
+ *     }
+ *
+ *   Pattern for the path to the font folder containing the .fnt and .png:
+ *     fontPath = <rawFontRoot>/<fontFamilyName>/fnt-<fontSize>/
+ *     fntPath = <fontPath>/<fontFamilyName>-<fontSize>.fnt
+ *     pngPath = <fontPath>/<fontFamilyName>-<fontSize>.png
+ */
+ext {
+    rawFontRoot = '../UpseilGDX/assets/font'
+    fontsToPixelate = [
+        ['vis-open-sans', [
+//              ['fontSize as Integer', 'filterColor as Hex-String', 0 /*alphaThreshold as Integer*/]
+                ['18', '#FFFFFF', 0.3 * 255]
+//                ['21', '#FFFFFF', 0.3 * 255],
+//                ['28', '#FFFFFF', 0.4 * 255]
+            ]
+        ]
+    ]
+}
+
+/** packSkins/deploySkins Configuration
+ *   Packs the fonts and components of the defined skins
+ *   and deploys them to the skin root folder in the game assets.
+ *   Packed skins are saved in the raw skin root folder.
+ *
+ *   Requires the rawFontRoot variable from the pixelateFonts configuration.
+ *
+ *   Path patterns for used
+ *     fonts:     <rawFoontRoot>/<fontName>/fnt-*
+ *     resources: <rawSkinRoot>/<skinBase>
+ */
+ext {
+    rawSkinRoot = '../UpseilGDX/assets/skin'
+    skinRoot = './core/assets/skin'
+    skins = [
+        //['skinBase', 'fontName', 'skinName']
+        ['tixel_BASE', 'vis-open-sans', 'tixel-vis']
+    ]
+}

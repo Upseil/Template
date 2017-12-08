@@ -1,0 +1,97 @@
+// Game HTML
+
+apply plugin: "jetty"
+apply plugin: "gwt"
+apply plugin: "war"
+
+buildscript {
+    dependencies {
+        classpath "de.richsource.gradle.plugins:gwt-gradle-plugin:$gwtGradleTarget"
+    }
+}
+
+dependencies {
+    compile project(":core")
+    compile project(":upseilgdx:gwt")
+    
+    compile "com.google.gwt:gwt-user:$gwtTarget"
+    
+    compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxTarget"
+    compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxTarget:sources"
+    compile "com.badlogicgames.gdx:gdx:$gdxTarget:sources"
+    
+    compile "net.onedaybeard.artemis:artemis-odb-gwt:$artemisTarget"
+    compile "net.onedaybeard.artemis:artemis-odb-gwt:$artemisTarget:sources"
+    compile "net.onedaybeard.artemis:artemis-odb:$artemisTarget:sources"
+    
+    compile "com.github.nmorel.gwtjackson:gwt-jackson:$jacksonGwtTarget"
+}
+
+task addSource {
+	doLast {
+		sourceSets.main.compileClasspath += files(project(':core').sourceSets.main.allJava.srcDirs)
+		sourceSets.main.compileClasspath += files(project(':upseilgdx:gdx').sourceSets.main.allJava.srcDirs)
+		sourceSets.main.compileClasspath += files(project(':upseilgdx:artemis').sourceSets.main.allJava.srcDirs)
+		sourceSets.main.compileClasspath += files(project(':upseilgdx:gwt').sourceSets.main.allJava.srcDirs)
+		sourceSets.main.compileClasspath += files(project(':upseilgdx:util').sourceSets.main.allJava.srcDirs)
+	}
+}
+
+gwt {
+    gwtVersion="$gwtTarget" // Should match the gwt version used for building the gwt backend
+    maxHeapSize="1G" // Default 256m is not enough for gwt compiler. GWT is HUNGRY
+    minHeapSize="1G"
+
+    src = files(file("src/")) // Needs to be in front of "modules" below.
+    modules 'com.upseil.game.html'
+    devModules 'com.upseil.game.htmlSuperdev'
+    project.webAppDirName = 'webapp'
+
+    compiler {
+        strict = true;
+        disableCastChecking = true;
+    }
+}
+
+task draftRun(type: JettyRunWar) {
+    dependsOn draftWar
+    dependsOn.remove('war')
+    webApp=draftWar.archivePath
+    daemon=true
+}
+
+task superDev(type: de.richsource.gradle.plugins.gwt.GwtSuperDev) {
+    dependsOn draftRun
+    doFirst {
+    	gwt.modules = gwt.devModules
+    }
+}
+
+task dist(dependsOn: [clean, compileGwt]) {
+    doLast {
+        file("build/dist").mkdirs()
+        copy {
+            from "build/gwt/out"
+            into "build/dist"
+        }
+        copy {
+            from "webapp"
+            into "build/dist"
+            }
+        copy {
+            from "war"
+            into "build/dist"
+        }
+    }
+}
+
+draftWar {
+   from "war"
+}
+
+tasks.compileGwt.dependsOn(addSource)
+tasks.draftCompileGwt.dependsOn(addSource)
+
+eclipse.project {
+    name = workingTitle + "-Html"
+}

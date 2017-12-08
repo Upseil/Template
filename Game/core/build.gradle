@@ -1,0 +1,20 @@
+// Game Core
+
+dependencies {
+	compile project(":upseilgdx:gdx")
+	compile project(":upseilgdx:util")
+	compile project(":upseilgdx:artemis")
+
+    compile "com.badlogicgames.gdx:gdx:$gdxTarget"
+    compile "net.onedaybeard.artemis:artemis-odb:$artemisTarget"
+    
+    compile "com.fasterxml.jackson.core:jackson-annotations:$jacksonTarget"
+    
+    testCompile "junit:junit:$junitTarget"
+}
+
+sourceSets.test.java.srcDirs = [ "test/" ]
+
+eclipse.project {
+    name = workingTitle + "-Core"
+}

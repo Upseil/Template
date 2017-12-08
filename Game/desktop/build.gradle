@@ -1,0 +1,51 @@
+// Game Desktop
+
+project.ext.mainClassName = "com.upseil.game.desktop.DesktopLauncher"
+project.ext.assetsDir = new File("../core/assets");
+
+dependencies {
+    compile project(":core")
+    
+    compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxTarget"
+    compile "com.badlogicgames.gdx:gdx-platform:$gdxTarget:natives-desktop"
+    compile "com.fasterxml.jackson.core:jackson-databind:$jacksonTarget"
+}
+
+task run(dependsOn: classes, type: JavaExec) {
+    main = project.mainClassName
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+    workingDir = project.assetsDir
+    ignoreExitValue = true
+}
+
+task dist(type: Jar) {
+	dependsOn classes
+
+    from files(sourceSets.main.output.classesDir)
+    from files(sourceSets.main.output.resourcesDir)
+    from {configurations.compile.collect {zipTree(it)}}
+    from files(project.assetsDir);
+ 
+    manifest {
+        attributes 'Main-Class': project.mainClassName
+    }
+}
+
+eclipse {
+    project {
+        name = workingTitle + "-Desktop"
+        linkedResource name: 'assets', type: '2', location: 'PARENT-1-PROJECT_LOC/core/assets'
+    }
+}
+
+task afterEclipseImport(description: "Post processing after project generation", group: "IDE") {
+  doLast {
+    def classpath = new XmlParser().parse(file(".classpath"))
+    new Node(classpath, "classpathentry", [ kind: 'src', path: 'assets' ]);
+    def writer = new FileWriter(file(".classpath"))
+    def printer = new XmlNodePrinter(new PrintWriter(writer))
+    printer.setPreserveWhitespace(true)
+    printer.print(classpath)
+  }
+}
