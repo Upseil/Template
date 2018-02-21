@@ -4,17 +4,18 @@ import com.artemis.World;
 import com.artemis.WorldConfiguration;
 import com.artemis.WorldConfigurationBuilder;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Clipboard;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.upseil.game.system.EntityFactory;
 import com.upseil.game.system.GameInitializer;
 import com.upseil.game.system.LoadSystem;
-import com.upseil.game.system.RenderSystem;
 import com.upseil.game.system.SaveSystem;
 import com.upseil.gdx.artemis.ArtemisApplicationAdapter;
 import com.upseil.gdx.artemis.system.ClearScreenSystem;
 import com.upseil.gdx.artemis.system.LayeredInputSystem;
+import com.upseil.gdx.artemis.system.LayeredSceneRenderSystem;
 import com.upseil.gdx.artemis.system.TagManager;
 import com.upseil.gdx.scene2d.util.BackgroundBuilder;
 import com.upseil.gdx.scene2d.util.BorderBuilder;
@@ -61,7 +62,7 @@ public class GameApplication extends ArtemisApplicationAdapter {
                 
                 .with(new LayeredInputSystem())
                 .with(new ClearScreenSystem())
-                .with(new RenderSystem())
+                .with(new LayeredSceneRenderSystem<>(new SpriteBatch()))
                 
                 .build();
 
@@ -80,6 +81,7 @@ public class GameApplication extends ArtemisApplicationAdapter {
     @Override
     public void dispose() {
         getWorld().dispose();
+        skin.dispose();
     }
     
 }

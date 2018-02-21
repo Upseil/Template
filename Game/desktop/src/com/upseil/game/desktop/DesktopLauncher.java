@@ -5,7 +5,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.upseil.game.GameApplication;
 import com.upseil.game.Savegame;
 import com.upseil.game.SerializationContext;
-import com.upseil.gdx.serialization.desktop.DesktopSavegameMapper;
+import com.upseil.gdx.serialization.desktop.DesktopCompressingMapper;
 
 public class DesktopLauncher {
     
@@ -15,7 +15,7 @@ public class DesktopLauncher {
         configuration.width = 1100;
         configuration.height = 700;
         
-        DesktopSavegameMapper<Savegame> savegameMapper = new DesktopSavegameMapper<>(Savegame.class);
+        DesktopCompressingMapper<Savegame> savegameMapper = new DesktopCompressingMapper<>(Savegame.class);
         savegameMapper.setCompressing(true);
         
         SerializationContext context = new SerializationContext(savegameMapper);

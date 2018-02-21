@@ -1,4 +1,3 @@
 [submodule "UpseilGDX"]
 	path = UpseilGDX
-	url = ../UpseilGDX.git
-	branch = master
+	url = https://github.com/Upseil/UpseilGDX.git

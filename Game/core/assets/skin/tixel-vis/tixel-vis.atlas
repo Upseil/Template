@@ -1,26 +1,12 @@
 
 tixel-vis.png
-size: 512,256
+size: 1024,128
 format: RGBA8888
 filter: Linear,Nearest
 repeat: none
-info-content
-  rotate: false
-  xy: 2, 80
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: -1
-severe-content
-  rotate: false
-  xy: 387, 102
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: -1
 t-base
   rotate: false
-  xy: 104, 88
+  xy: 30, 9
   size: 12, 24
   split: 4, 4, 4, 4
   orig: 12, 24
@@ -28,7 +14,7 @@ t-base
   index: -1
 t-border
   rotate: false
-  xy: 497, 129
+  xy: 2, 2
   size: 5, 5
   split: 2, 2, 2, 2
   orig: 5, 5
@@ -36,7 +22,7 @@ t-border
   index: -1
 t-border-bottom
   rotate: false
-  xy: 70, 75
+  xy: 60, 19
   size: 1, 3
   split: 0, 0, 0, 2
   orig: 1, 3
@@ -44,7 +30,7 @@ t-border-bottom
   index: -1
 t-border-highlight
   rotate: false
-  xy: 399, 2
+  xy: 44, 10
   size: 7, 7
   split: 3, 3, 3, 3
   orig: 7, 7
@@ -52,7 +38,7 @@ t-border-highlight
   index: -1
 t-border-left
   rotate: false
-  xy: 96, 81
+  xy: 793, 76
   size: 3, 1
   split: 2, 0, 0, 0
   orig: 3, 1
@@ -60,7 +46,7 @@ t-border-left
   index: -1
 t-border-right
   rotate: false
-  xy: 421, 71
+  xy: 284, 20
   size: 3, 1
   split: 0, 2, 0, 0
   orig: 3, 1
@@ -68,7 +54,7 @@ t-border-right
   index: -1
 t-border-slim
   rotate: false
-  xy: 453, 105
+  xy: 767, 71
   size: 3, 3
   split: 1, 1, 1, 1
   orig: 3, 3
@@ -76,7 +62,7 @@ t-border-slim
   index: -1
 t-border-slim-bottom
   rotate: false
-  xy: 417, 38
+  xy: 16, 5
   size: 1, 2
   split: 0, 0, 0, 1
   orig: 1, 2
@@ -84,7 +70,7 @@ t-border-slim-bottom
   index: -1
 t-border-slim-left
   rotate: false
-  xy: 415, 35
+  xy: 16, 2
   size: 2, 1
   split: 1, 0, 0, 0
   orig: 2, 1
@@ -92,7 +78,7 @@ t-border-slim-left
   index: -1
 t-border-slim-right
   rotate: false
-  xy: 447, 74
+  xy: 20, 2
   size: 2, 1
   split: 0, 1, 0, 0
   orig: 2, 1
@@ -100,7 +86,7 @@ t-border-slim-right
   index: -1
 t-border-slim-top
   rotate: false
-  xy: 118, 99
+  xy: 19, 5
   size: 1, 2
   split: 0, 0, 1, 0
   orig: 1, 2
@@ -108,7 +94,7 @@ t-border-slim-top
   index: -1
 t-border-top
   rotate: false
-  xy: 10, 7
+  xy: 71, 30
   size: 1, 3
   split: 0, 0, 2, 0
   orig: 1, 3
@@ -116,21 +102,14 @@ t-border-top
   index: -1
 t-check
   rotate: false
-  xy: 399, 22
+  xy: 284, 49
   size: 14, 14
   orig: 14, 14
   offset: 0, 0
   index: -1
-t-circle
-  rotate: false
-  xy: 257, 6
-  size: 128, 128
-  orig: 128, 128
-  offset: 0, 0
-  index: -1
 t-cursor
   rotate: false
-  xy: 47, 15
+  xy: 300, 49
   size: 3, 3
   split: 1, 1, 1, 1
   orig: 3, 3
@@ -138,143 +117,102 @@ t-cursor
   index: -1
 t-dot
   rotate: false
-  xy: 129, 111
+  xy: 319, 62
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 t-hknob
   rotate: false
-  xy: 2, 2
+  xy: 311, 55
   size: 6, 8
   orig: 6, 8
   offset: 0, 0
   index: -1
 t-hline
   rotate: false
-  xy: 70, 80
+  xy: 512, 67
   size: 24, 2
   orig: 24, 2
   offset: 0, 0
   index: -1
 t-hline-slim
   rotate: false
-  xy: 421, 74
+  xy: 767, 76
   size: 24, 1
   orig: 24, 1
   offset: 0, 0
   index: -1
 t-hslider
   rotate: false
-  xy: 66, 48
+  xy: 296, 43
   size: 1, 4
   orig: 1, 4
   offset: 0, 0
   index: -1
-t-info-background
-  rotate: false
-  xy: 421, 104
-  size: 30, 30
-  orig: 32, 32
-  offset: 1, 1
-  index: -1
 t-minus
   rotate: false
-  xy: 118, 103
+  xy: 300, 54
   size: 9, 9
   split: 2, 2, 2, 2
   orig: 9, 9
-  offset: 0, 0
-  index: -1
-t-pause
-  rotate: false
-  xy: 2, 12
-  size: 28, 32
-  orig: 28, 32
-  offset: 0, 0
-  index: -1
-t-play
-  rotate: false
-  xy: 36, 46
-  size: 28, 32
-  orig: 28, 32
   offset: 0, 0
   index: -1
 t-plus
   rotate: false
-  xy: 399, 11
+  xy: 60, 24
   size: 9, 9
   split: 2, 2, 2, 2
   orig: 9, 9
   offset: 0, 0
   index: -1
-t-progress
-  rotate: false
-  xy: 2, 46
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: -1
 t-radio
   rotate: false
-  xy: 481, 120
+  xy: 44, 19
   size: 14, 14
   orig: 14, 14
   offset: 0, 0
   index: -1
 t-select
   rotate: false
-  xy: 453, 110
+  xy: 2, 9
   size: 26, 24
   split: 4, 15, 0, 24
   orig: 26, 24
   offset: 0, 0
   index: -1
-t-settings
+t-titleless-window
   rotate: false
-  xy: 36, 80
-  size: 32, 32
-  orig: 32, 32
+  xy: 272, 19
+  size: 10, 8
+  split: 5, 4, 4, 3
+  orig: 10, 8
   offset: 0, 0
-  index: -1
-t-severe-background
-  rotate: false
-  xy: 387, 38
-  size: 28, 28
-  orig: 32, 32
-  offset: 2, 2
   index: -1
 t-tree-minus
   rotate: false
-  xy: 52, 39
+  xy: 9, 2
   size: 5, 5
   orig: 5, 5
   offset: 0, 0
   index: -1
 t-tree-plus
   rotate: false
-  xy: 408, 2
+  xy: 53, 10
   size: 4, 7
   orig: 4, 7
   offset: 0, 0
   index: -1
-t-unpin
-  rotate: false
-  xy: 387, 68
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: -1
 t-vknob
   rotate: false
-  xy: 481, 112
+  xy: 44, 2
   size: 8, 6
   orig: 8, 6
   offset: 0, 0
   index: -1
 t-vknob-slim
   rotate: false
-  xy: 47, 20
+  xy: 284, 23
   size: 3, 24
   split: 1, 1, 2, 2
   orig: 3, 24
@@ -282,35 +220,28 @@ t-vknob-slim
   index: -1
 t-vline
   rotate: false
-  xy: 66, 54
+  xy: 289, 23
   size: 2, 24
   orig: 2, 24
   offset: 0, 0
   index: -1
 t-vline-slim
   rotate: false
-  xy: 417, 42
+  xy: 293, 23
   size: 1, 24
   orig: 1, 24
   offset: 0, 0
   index: -1
 t-vslider
   rotate: false
-  xy: 104, 85
+  xy: 538, 68
   size: 4, 1
   orig: 4, 1
   offset: 0, 0
   index: -1
-t-warning-background
-  rotate: false
-  xy: 421, 77
-  size: 28, 25
-  orig: 32, 28
-  offset: 2, 1
-  index: -1
 t-window
   rotate: false
-  xy: 387, 2
+  xy: 272, 29
   size: 10, 34
   split: 5, 4, 30, 3
   orig: 10, 34
@@ -318,7 +249,7 @@ t-window
   index: -1
 t-window-resize
   rotate: false
-  xy: 32, 3
+  xy: 257, 22
   size: 13, 41
   split: 2, 10, 30, 10
   orig: 13, 41
@@ -326,36 +257,29 @@ t-window-resize
   index: -1
 vis-open-sans-18
   rotate: false
-  xy: 2, 114
+  xy: 767, 79
   size: 253, 47
   orig: 256, 64
   offset: 1, 16
   index: -1
 vis-open-sans-21
   rotate: false
-  xy: 257, 136
+  xy: 512, 71
   size: 253, 55
   orig: 256, 64
   offset: 1, 8
   index: -1
 vis-open-sans-21_bold
   rotate: false
-  xy: 257, 193
+  xy: 257, 65
   size: 253, 61
   orig: 256, 64
   offset: 1, 2
   index: -1
 vis-open-sans-28
   rotate: false
-  xy: 2, 163
+  xy: 2, 35
   size: 253, 91
   orig: 256, 128
   offset: 1, 36
-  index: -1
-warning-content
-  rotate: false
-  xy: 70, 84
-  size: 32, 28
-  orig: 32, 28
-  offset: 0, 0
   index: -1

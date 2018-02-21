@@ -1,12 +1,10 @@
 package com.upseil.game.domain;
 
-public class Data {
+import com.upseil.gdx.pool.AbstractPooled;
+
+public class Data extends AbstractPooled<Data>{
     
     private int value;
-
-    public Data(int value) {
-        this.value = value;
-    }
 
     public int getValue() {
         return value;
@@ -14,6 +12,12 @@ public class Data {
 
     public void setValue(int value) {
         this.value = value;
+    }
+    
+    @Override
+    public void reset() {
+        super.reset();
+        value = 0;
     }
 
     @Override

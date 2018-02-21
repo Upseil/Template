@@ -1,0 +1,3 @@
+This skin is based on tixel <https://github.com/kotcrab/vis-ui-contrib/tree/master/skins/tixel> created by Pawel Pastuszak <https://github.com/kotcrab>.
+
+The font Open Sans (here renamed to vis-open-sans) was designed by Steve Matteson and published on https://fonts.google.com/specimen/Open+Sans?selection.family=Open+Sans under the Apache License, Version 2.0 <http://www.apache.org/licenses/LICENSE-2.0>.

@@ -1,5 +1,6 @@
 package com.upseil.game;
 
+import com.upseil.gdx.artemis.config.SaveConfig;
 import com.upseil.gdx.config.AbstractConfig;
 import com.upseil.gdx.config.RawConfig;
 import com.upseil.gdx.scene2d.util.BackgroundBuilder;
@@ -8,15 +9,14 @@ import com.upseil.gdx.scene2d.util.DividerBuilder;
 
 public class GameConfig extends AbstractConfig {
 
-    private final SavegameConfig savegameConfig;
-    
+    private final SaveConfig saveConfig;
     private final BackgroundBuilder.Config backgroundBuilderConfig;
     private final BorderBuilder.Config borderBuilderConfig;
     private final DividerBuilder.Config dividerBuilderConfig;
 
     public GameConfig(String path) {
         super(path);
-        savegameConfig = new SavegameConfig(getRawConfig().getChild("savegame"));
+        saveConfig = new SaveConfig(getRawConfig().getChild("savegame"));
         
         backgroundBuilderConfig = new BackgroundBuilder.Config(getRawConfig().getChild("backgroundBuilder"));
         borderBuilderConfig = new BorderBuilder.Config(getRawConfig().getChild("borderBuilder"));
@@ -27,8 +27,8 @@ public class GameConfig extends AbstractConfig {
         return getRawConfig().getInt("initialValue");
     }
     
-    public SavegameConfig getSavegameConfig() {
-        return savegameConfig;
+    public SaveConfig getSavegameConfig() {
+        return saveConfig;
     }
     
     public BackgroundBuilder.Config getBackgroundBuilderConfig() {

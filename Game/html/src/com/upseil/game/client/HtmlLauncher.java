@@ -22,9 +22,9 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.upseil.game.GameApplication;
 import com.upseil.game.Savegame;
 import com.upseil.game.SerializationContext;
-import com.upseil.gdx.gwt.serialization.HtmlSavegameMapper;
-import com.upseil.gdx.gwt.serialization.SystemAccessClipboard;
+import com.upseil.gdx.gwt.serialization.HtmlCompressingMapper;
 import com.upseil.gdx.gwt.util.BrowserConsoleLogger;
+import com.upseil.gdx.gwt.util.SystemAccessClipboard;
 
 public class HtmlLauncher extends GwtApplication {
     
@@ -55,7 +55,7 @@ public class HtmlLauncher extends GwtApplication {
         JsonDeserializationContext deserializationContext = JsonDeserializationContext.builder().failOnUnknownProperties(false).build();
         
         SavegameMapper savegameMapper = GWT.create(SavegameMapper.class);
-        HtmlSavegameMapper<Savegame> htmlSavegameMapper = new HtmlSavegameMapper<>(savegameMapper, serializationContext, deserializationContext);
+        HtmlCompressingMapper<Savegame> htmlSavegameMapper = new HtmlCompressingMapper<>(savegameMapper, serializationContext, deserializationContext);
         htmlSavegameMapper.setCompressing(true);
         
         SerializationContext context = new SerializationContext(htmlSavegameMapper);
