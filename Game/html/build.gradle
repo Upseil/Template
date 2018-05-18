@@ -19,6 +19,8 @@ dependencies {
     compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxTarget"
     compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxTarget:sources"
     compile "com.badlogicgames.gdx:gdx:$gdxTarget:sources"
+    compile "com.badlogicgames.gdx:gdx-box2d:$gdxTarget:sources"
+    compile "com.badlogicgames.gdx:gdx-box2d-gwt:$gdxTarget:sources"
     
     compile "net.onedaybeard.artemis:artemis-odb-gwt:$artemisTarget"
     compile "net.onedaybeard.artemis:artemis-odb-gwt:$artemisTarget:sources"
@@ -31,9 +33,10 @@ task addSource {
 	doLast {
 		sourceSets.main.compileClasspath += files(project(':core').sourceSets.main.allJava.srcDirs)
 		sourceSets.main.compileClasspath += files(project(':upseilgdx:gdx').sourceSets.main.allJava.srcDirs)
-		sourceSets.main.compileClasspath += files(project(':upseilgdx:artemis').sourceSets.main.allJava.srcDirs)
-		sourceSets.main.compileClasspath += files(project(':upseilgdx:gwt').sourceSets.main.allJava.srcDirs)
 		sourceSets.main.compileClasspath += files(project(':upseilgdx:util').sourceSets.main.allJava.srcDirs)
+		sourceSets.main.compileClasspath += files(project(':upseilgdx:artemis').sourceSets.main.allJava.srcDirs)
+        sourceSets.main.compileClasspath += files(project(':upseilgdx:box2d').sourceSets.main.allJava.srcDirs)
+		sourceSets.main.compileClasspath += files(project(':upseilgdx:gwt').sourceSets.main.allJava.srcDirs)
 	}
 }
 

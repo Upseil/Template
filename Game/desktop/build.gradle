@@ -8,6 +8,7 @@ dependencies {
     
     compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxTarget"
     compile "com.badlogicgames.gdx:gdx-platform:$gdxTarget:natives-desktop"
+    compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxTarget:natives-desktop"
     compile "com.fasterxml.jackson.core:jackson-databind:$jacksonTarget"
 }
 

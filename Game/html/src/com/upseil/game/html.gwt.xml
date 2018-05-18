@@ -3,13 +3,15 @@
 <module rename-to="html">
 	<inherits name='com.badlogic.gdx.backends.gdx_backends_gwt' />
 	<inherits name='com.artemis.backends.artemis_backends_gwt' />
+    <inherits name="com.badlogic.gdx.physics.box2d.box2d-gwt"/>
 	
 	<inherits name="com.github.nmorel.gwtjackson.GwtJackson" />
 	
 	<inherits name='com.upseil.gdx.upseilgdx' />
-	<inherits name='com.upseil.gdx.upseilgdx-gwt' />
-	<inherits name='com.upseil.gdx.upseilgdx-artemis' />
 	<inherits name='com.upseil.gdx.upseilgdx-util' />
+	<inherits name='com.upseil.gdx.upseilgdx-artemis' />
+    <inherits name='com.upseil.gdx.upseilgdx-box2d' />
+	<inherits name='com.upseil.gdx.upseilgdx-gwt' />
 	
 	<inherits name='com.upseil.game.core' />
 	<entry-point class='com.upseil.game.client.HtmlLauncher' />
