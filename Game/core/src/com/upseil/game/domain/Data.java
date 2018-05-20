@@ -14,6 +14,14 @@ public class Data extends AbstractPooled<Data>{
         this.value = value;
     }
     
+    public void increment() {
+        value++;
+    }
+    
+    public void decrement() {
+        value--;
+    }
+    
     @Override
     public void reset() {
         super.reset();

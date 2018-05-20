@@ -1,12 +1,15 @@
 package com.upseil.game.system;
 
 import com.artemis.BaseSystem;
+import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.EntityEdit;
 import com.artemis.annotations.Wire;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -26,6 +29,7 @@ import com.upseil.gdx.pool.PooledPools;
 import com.upseil.gdx.scene2d.SimpleClickedListener;
 import com.upseil.gdx.scene2d.dialog.LargeTextInputDialog;
 import com.upseil.gdx.scene2d.util.SameWidth;
+import com.upseil.gdx.scene2d.util.ValueLabelBuilder;
 
 public class GameInitializer extends BaseSystem {
     
@@ -33,6 +37,8 @@ public class GameInitializer extends BaseSystem {
     private LayeredSceneRenderSystem<?> renderSystem;
     private SaveSystem saveSystem;
     private LoadSystem loadSystem;
+    
+    private ComponentMapper<GameState> gameStateMapper;
     
     @Wire(name="Config") private GameConfig config;
     @Wire(name="Skin") private Skin skin;
@@ -42,7 +48,6 @@ public class GameInitializer extends BaseSystem {
     protected void initialize() {
         Data data = PooledPools.obtain(Data.class);
         data.setValue(config.getInitialValue());
-        
         GameState gameState = new GameState();
         gameState.setData(data);
         
@@ -79,20 +84,39 @@ public class GameInitializer extends BaseSystem {
             }
         }));
         importButton.padLeft(10).padRight(10);
-
-        SameWidth uniform = new SameWidth(loadButton, exportButton, saveButton, importButton);
         
+        Button minusButton = new ImageButton(skin, "minus");
+        minusButton.addListener(new SimpleClickedListener(() -> getGameState().getData().decrement()));
+        Button plusButton = new ImageButton(skin, "plus");
+        plusButton.addListener(new SimpleClickedListener(() -> getGameState().getData().increment()));
+        Table controlsTable = new Table(skin);
+        controlsTable.defaults().space(5);
+        controlsTable.add(minusButton).size(40).expandX().fillX().right().padRight(20);
+        controlsTable.add(hudMessages.get("value") + ":", "big");
+        controlsTable.add(ValueLabelBuilder.newLabel(skin, "big").withValue(() -> getGameState().getData().getValue()).build());
+        controlsTable.add(plusButton).size(40).expandX().fillX().left().padLeft(20);
+
         Table container = new Table(skin);
         container.setFillParent(true);
         container.top().left().pad(10);
-        container.defaults().align(Align.center).expandX().fillX().uniformX().width(uniform);
+        container.defaults().align(Align.center).expandX().fillX().uniformX();
         
+        container.row().width(new SameWidth(loadButton, exportButton, saveButton, importButton));
         container.add(saveButton);
         container.add(loadButton);
         container.add(exportButton);
         container.add(importButton);
         
+        container.row();
+        container.add(controlsTable).colspan(container.getColumns()).fillY().expandY();
+        
+//        container.debug();
+        
         uiStage.addActor(container);
+    }
+    
+    private GameState getGameState() {
+        return gameStateMapper.get(tagManager.getEntity(Tag.GameState));
     }
 
     @Override
