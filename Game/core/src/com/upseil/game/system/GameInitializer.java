@@ -26,7 +26,7 @@ import com.upseil.gdx.artemis.component.Scene;
 import com.upseil.gdx.artemis.system.LayeredSceneRenderSystem;
 import com.upseil.gdx.artemis.system.TagManager;
 import com.upseil.gdx.pool.PooledPools;
-import com.upseil.gdx.scene2d.SimpleClickedListener;
+import com.upseil.gdx.scene2d.SimpleChangeListener;
 import com.upseil.gdx.scene2d.dialog.LargeTextInputDialog;
 import com.upseil.gdx.scene2d.util.SameWidth;
 import com.upseil.gdx.scene2d.util.ValueLabelBuilder;
@@ -66,17 +66,17 @@ public class GameInitializer extends BaseSystem {
         hud.create(InputHandler.class).setProcessor(uiStage);
 
         TextButton saveButton = new TextButton(hudMessages.get("save"), skin);
-        saveButton.addListener(new SimpleClickedListener(saveSystem::saveToAutoSlot));
+        saveButton.addListener(new SimpleChangeListener(saveSystem::saveToAutoSlot));
         TextButton loadButton = new TextButton(hudMessages.get("load"), skin);
-        loadButton.addListener(new SimpleClickedListener(loadSystem::loadFromAutoSlot));
+        loadButton.addListener(new SimpleChangeListener(loadSystem::loadFromAutoSlot));
         
         TextButton exportButton = new TextButton(hudMessages.get("export"), skin);
-        exportButton.addListener(new SimpleClickedListener(() -> saveSystem.exportSave(data -> saveSystem.getSystemAccessClipboard().setContents(data))));
+        exportButton.addListener(new SimpleChangeListener(() -> saveSystem.exportSave(data -> saveSystem.getSystemAccessClipboard().setContents(data))));
         LargeTextInputDialog importDialog = new LargeTextInputDialog(hudMessages.get("import"), null, hudMessages.get("cancel"),
                                                                      hudMessages.get("import"), skin, loadSystem::importGame);
         importDialog.getTextFieldCell().size(300, 200);
         TextButton importButton = new TextButton(hudMessages.get("import"), skin);
-        importButton.addListener(new SimpleClickedListener(() -> {
+        importButton.addListener(new SimpleChangeListener(() -> {
             if (Gdx.app.getType() == ApplicationType.WebGL) {
                 loadSystem.importGame(saveSystem.getSystemAccessClipboard().getContents());
             } else {
@@ -86,9 +86,9 @@ public class GameInitializer extends BaseSystem {
         importButton.padLeft(10).padRight(10);
         
         Button minusButton = new ImageButton(skin, "minus");
-        minusButton.addListener(new SimpleClickedListener(() -> getGameState().getData().decrement()));
+        minusButton.addListener(new SimpleChangeListener(() -> getGameState().getData().decrement()));
         Button plusButton = new ImageButton(skin, "plus");
-        plusButton.addListener(new SimpleClickedListener(() -> getGameState().getData().increment()));
+        plusButton.addListener(new SimpleChangeListener(() -> getGameState().getData().increment()));
         Table controlsTable = new Table(skin);
         controlsTable.defaults().space(5);
         controlsTable.add(minusButton).size(40).expandX().fillX().right().padRight(20);
@@ -109,8 +109,6 @@ public class GameInitializer extends BaseSystem {
         
         container.row();
         container.add(controlsTable).colspan(container.getColumns()).fillY().expandY();
-        
-//        container.debug();
         
         uiStage.addActor(container);
     }
