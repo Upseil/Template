@@ -29,6 +29,14 @@ dependencies {
     compile "com.github.nmorel.gwtjackson:gwt-jackson:$jacksonGwtTarget"
 }
 
+task copyGameInit(type: Copy) {
+    from file("../core/assets/game.init")
+    into file("src/com/upseil/game/")
+}
+
+tasks.compileGwt.dependsOn(copyGameInit)
+tasks.draftCompileGwt.dependsOn(copyGameInit)
+
 task addSource {
 	doLast {
 		sourceSets.main.compileClasspath += files(project(':core').sourceSets.main.allJava.srcDirs)
@@ -39,6 +47,9 @@ task addSource {
 		sourceSets.main.compileClasspath += files(project(':upseilgdx:gwt').sourceSets.main.allJava.srcDirs)
 	}
 }
+
+tasks.compileGwt.dependsOn(addSource)
+tasks.draftCompileGwt.dependsOn(addSource)
 
 gwt {
     gwtVersion="$gwtTarget" // Should match the gwt version used for building the gwt backend
