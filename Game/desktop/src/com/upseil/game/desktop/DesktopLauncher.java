@@ -1,33 +1,35 @@
 package com.upseil.game.desktop;
 
-import java.io.FileInputStream;
+import static com.upseil.game.Constants.GameInit.*;
+
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.upseil.game.Constants.GameInit;
 import com.upseil.game.GameApplication;
 import com.upseil.game.Savegame;
 import com.upseil.game.SerializationContext;
+import com.upseil.gdx.properties.Properties;
 import com.upseil.gdx.serialization.desktop.DesktopCompressingMapper;
 
 public class DesktopLauncher {
     
     public static void main(String[] args) throws Exception {
-        Properties gameInit = new Properties();
-        try (InputStream fileStream = new FileInputStream("game.init")) {
-            gameInit.load(fileStream);
+        Properties<GameInit> gameInit;
+        try {
+            gameInit = Properties.fromPropertiesLines(Files.readAllLines(Paths.get("game.init")), GameInit.class);
         } catch (IOException e) {
-            System.err.println("Error loading the init file");
-            throw e;
+            throw new IllegalArgumentException("Can't read the init file", e);
         }
-        
+                
         LwjglApplicationConfiguration configuration = new LwjglApplicationConfiguration();
-        configuration.title = gameInit.getProperty("Title");
-        configuration.width = Integer.parseInt(gameInit.getProperty("Width"));
-        configuration.height = Integer.parseInt(gameInit.getProperty("Height"));
-        configuration.resizable = !Boolean.parseBoolean(gameInit.getProperty("FixedSize"));
+        configuration.title = gameInit.get(Title);
+        configuration.width = gameInit.getInt(Width);
+        configuration.height = gameInit.getInt(Height);
+        configuration.resizable = !gameInit.getBoolean(FixedSize);
         
         DesktopCompressingMapper<Savegame> savegameMapper = new DesktopCompressingMapper<>(Savegame.class);
         savegameMapper.setCompressing(true);

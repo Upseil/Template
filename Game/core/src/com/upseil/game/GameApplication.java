@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Clipboard;
 import com.badlogic.gdx.utils.I18NBundle;
+import com.upseil.game.Constants.Tag;
 import com.upseil.game.system.EntityFactory;
 import com.upseil.game.system.GameInitializer;
 import com.upseil.game.system.LoadSystem;

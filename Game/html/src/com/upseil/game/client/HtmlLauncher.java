@@ -1,6 +1,6 @@
 package com.upseil.game.client;
 
-import java.util.Map;
+import static com.upseil.game.Constants.GameInit.*;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
@@ -21,26 +21,24 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.upseil.game.Constants.GameInit;
 import com.upseil.game.GameApplication;
 import com.upseil.game.Savegame;
 import com.upseil.game.SerializationContext;
 import com.upseil.gdx.gwt.serialization.HtmlCompressingMapper;
 import com.upseil.gdx.gwt.util.BrowserConsoleLogger;
 import com.upseil.gdx.gwt.util.SystemAccessClipboard;
+import com.upseil.gdx.properties.Properties;
 
 public class HtmlLauncher extends GwtApplication {
     
     public interface SavegameMapper extends ObjectMapper<Savegame> { }
     
-    private Map<String, String> gameInit;
-    private boolean fixedSize;
+    private static final Properties<GameInit> GameInit = Properties.fromPropertiesText(Resources.Instance.gameInitText().getText(), GameInit.class);
     
     @Override
     public void onModuleLoad() {
-        gameInit = Resources.Instance.gameInit();
-        fixedSize = Boolean.parseBoolean(gameInit.get("FixedSize"));
-        
-        if (!fixedSize) {
+        if (!GameInit.getBoolean(FixedSize)) {
             Window.enableScrolling(false);
         }
         super.onModuleLoad();
@@ -55,7 +53,7 @@ public class HtmlLauncher extends GwtApplication {
             }
             @Override
             public void afterSetup() {
-                if (!fixedSize) {
+                if (!GameInit.getBoolean(FixedSize)) {
                     setupResizing();
                 }
             }
@@ -87,9 +85,9 @@ public class HtmlLauncher extends GwtApplication {
     @Override
     public GwtApplicationConfiguration getConfig() {
         int width, height;
-        if (fixedSize) {
-            width = Integer.parseInt(gameInit.get("Width"));
-            height = Integer.parseInt(gameInit.get("Height"));
+        if (GameInit.getBoolean(FixedSize)) {
+            width = GameInit.getInt(Width);
+            height = GameInit.getInt(Height);
         } else {
             width = Window.getClientWidth();
             height = Window.getClientHeight();
@@ -124,7 +122,7 @@ public class HtmlLauncher extends GwtApplication {
     
     @Override
     public PreloaderCallback getPreloaderCallback() {
-        final Label title = new Label(gameInit.get("Title"));
+        final Label title = new Label(GameInit.get(Title));
         title.addStyleName("game-title");
         getRootPanel().add(title);
         
