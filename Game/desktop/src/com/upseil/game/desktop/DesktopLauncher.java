@@ -12,8 +12,8 @@ import com.upseil.game.Constants.GameInit;
 import com.upseil.game.GameApplication;
 import com.upseil.game.Savegame;
 import com.upseil.game.SerializationContext;
-import com.upseil.gdx.properties.Properties;
 import com.upseil.gdx.serialization.desktop.DesktopCompressingMapper;
+import com.upseil.gdx.util.properties.Properties;
 
 public class DesktopLauncher {
     

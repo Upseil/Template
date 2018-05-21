@@ -28,7 +28,7 @@ import com.upseil.game.SerializationContext;
 import com.upseil.gdx.gwt.serialization.HtmlCompressingMapper;
 import com.upseil.gdx.gwt.util.BrowserConsoleLogger;
 import com.upseil.gdx.gwt.util.SystemAccessClipboard;
-import com.upseil.gdx.properties.Properties;
+import com.upseil.gdx.util.properties.Properties;
 
 public class HtmlLauncher extends GwtApplication {
     
