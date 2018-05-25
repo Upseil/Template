@@ -5,7 +5,7 @@ import com.badlogic.gdx.utils.Clipboard;
 import com.upseil.game.Constants.Tag;
 import com.upseil.game.Savegame;
 import com.upseil.game.component.GameState;
-import com.upseil.gdx.artemis.config.SaveConfig;
+import com.upseil.gdx.artemis.ArtemisConfigs.SaveConfig;
 import com.upseil.gdx.artemis.system.AbstractSaveSystem;
 import com.upseil.gdx.artemis.system.TagManager;
 import com.upseil.gdx.serialization.Writer;

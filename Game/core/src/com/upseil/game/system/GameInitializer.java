@@ -16,8 +16,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.upseil.game.Config.GameConfig;
+import com.upseil.game.Config.GameConfigValues;
 import com.upseil.game.Constants.Tag;
-import com.upseil.game.GameConfig;
 import com.upseil.game.component.GameState;
 import com.upseil.game.domain.Data;
 import com.upseil.gdx.artemis.component.InputHandler;
@@ -47,7 +48,7 @@ public class GameInitializer extends BaseSystem {
     @Override
     protected void initialize() {
         Data data = PooledPools.obtain(Data.class);
-        data.setValue(config.getInitialValue());
+        data.setValue(config.getInt(GameConfigValues.InitialValue));
         GameState gameState = new GameState();
         gameState.setData(data);
         
