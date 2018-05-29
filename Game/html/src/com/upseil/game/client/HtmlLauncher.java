@@ -1,6 +1,11 @@
 package com.upseil.game.client;
 
-import static com.upseil.game.Constants.GameInit.*;
+import static com.upseil.game.Constants.GameInit.FixedSize;
+import static com.upseil.game.Constants.GameInit.Height;
+import static com.upseil.game.Constants.GameInit.Title;
+import static com.upseil.game.Constants.GameInit.Width;
+
+import java.util.function.Consumer;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
@@ -27,7 +32,6 @@ import com.upseil.game.Savegame;
 import com.upseil.game.SerializationContext;
 import com.upseil.gdx.gwt.serialization.HtmlCompressingMapper;
 import com.upseil.gdx.gwt.util.BrowserConsoleLogger;
-import com.upseil.gdx.gwt.util.SystemAccessClipboard;
 import com.upseil.gdx.util.properties.Properties;
 
 public class HtmlLauncher extends GwtApplication {
@@ -35,6 +39,9 @@ public class HtmlLauncher extends GwtApplication {
     public interface SavegameMapper extends ObjectMapper<Savegame> { }
     
     private static final Properties<GameInit> GameInit = Properties.fromPropertiesText(Resources.Instance.gameInitText().getText(), GameInit.class);
+    private static final UiConstants uiConstants = GWT.create(UiConstants.class);
+    
+    private Consumer<String> importConsumer;
     
     @Override
     public void onModuleLoad() {
@@ -67,8 +74,12 @@ public class HtmlLauncher extends GwtApplication {
         htmlSavegameMapper.setCompressing(true);
         
         SerializationContext context = new SerializationContext(htmlSavegameMapper);
-        return new GameApplication(context, new SystemAccessClipboard("clipboard-textarea", "clipboard"));
+        return new GameApplication(context, HtmlLauncher::exportText, new GwtImportDialog(uiConstants));
     }
+    
+    private static native void exportText(String text) /*-{
+        $wnd.exportText(text);
+    }-*/;
     
     private void setupResizing() {
         getRootPanel().setWidth("100%");

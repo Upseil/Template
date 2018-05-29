@@ -35,7 +35,7 @@ public class DesktopLauncher {
         savegameMapper.setCompressing(true);
         
         SerializationContext context = new SerializationContext(savegameMapper);
-        new LwjglApplication(new GameApplication(context, /*systemAccessClipboard*/ null), configuration);
+        new LwjglApplication(new GameApplication(context, null, null), configuration);
     }
     
 }

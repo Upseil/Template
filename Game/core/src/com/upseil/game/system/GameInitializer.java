@@ -5,8 +5,6 @@ import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.EntityEdit;
 import com.artemis.annotations.Wire;
-import com.badlogic.gdx.Application.ApplicationType;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -28,13 +26,13 @@ import com.upseil.gdx.artemis.system.LayeredSceneRenderSystem;
 import com.upseil.gdx.artemis.system.TagManager;
 import com.upseil.gdx.pool.PooledPools;
 import com.upseil.gdx.scene2d.SimpleChangeListener;
-import com.upseil.gdx.scene2d.dialog.LargeTextInputDialog;
 import com.upseil.gdx.scene2d.util.SameWidth;
 import com.upseil.gdx.scene2d.util.ValueLabelBuilder;
 
 public class GameInitializer extends BaseSystem {
     
     private TagManager<Tag> tagManager;
+    private ImportExportSystem importExportSystem;
     private LayeredSceneRenderSystem<?> renderSystem;
     private SaveSystem saveSystem;
     private LoadSystem loadSystem;
@@ -61,10 +59,11 @@ public class GameInitializer extends BaseSystem {
 
     private void initializeUI() {
         Stage uiStage = new Stage(new ScreenViewport(), renderSystem.getGlobalBatch());
-        EntityEdit hud = world.createEntity().edit();
-        hud.create(Layer.class).setZIndex(1);
-        hud.create(Scene.class).initialize(uiStage);
-        hud.create(InputHandler.class).setProcessor(uiStage);
+        EntityEdit uiEntity = world.createEntity().edit();
+        uiEntity.create(Layer.class).setZIndex(1);
+        uiEntity.create(Scene.class).initialize(uiStage);
+        uiEntity.create(InputHandler.class).setProcessor(uiStage);
+        tagManager.register(Tag.UiStage, uiEntity.getEntityId());
 
         TextButton saveButton = new TextButton(hudMessages.get("save"), skin);
         saveButton.addListener(new SimpleChangeListener(saveSystem::saveToAutoSlot));
@@ -72,18 +71,9 @@ public class GameInitializer extends BaseSystem {
         loadButton.addListener(new SimpleChangeListener(loadSystem::loadFromAutoSlot));
         
         TextButton exportButton = new TextButton(hudMessages.get("export"), skin);
-        exportButton.addListener(new SimpleChangeListener(() -> saveSystem.exportSave(data -> saveSystem.getSystemAccessClipboard().setContents(data))));
-        LargeTextInputDialog importDialog = new LargeTextInputDialog(hudMessages.get("import"), null, hudMessages.get("cancel"),
-                                                                     hudMessages.get("import"), skin, loadSystem::importGame);
-        importDialog.getTextFieldCell().size(300, 200);
+        exportButton.addListener(new SimpleChangeListener(() -> saveSystem.exportSave(data -> importExportSystem.exportText(data))));
         TextButton importButton = new TextButton(hudMessages.get("import"), skin);
-        importButton.addListener(new SimpleChangeListener(() -> {
-            if (Gdx.app.getType() == ApplicationType.WebGL) {
-                loadSystem.importGame(saveSystem.getSystemAccessClipboard().getContents());
-            } else {
-                importDialog.show(uiStage);
-            }
-        }));
+        importButton.addListener(new SimpleChangeListener(() -> importExportSystem.showImportDialog()));
         importButton.padLeft(10).padRight(10);
         
         Button minusButton = new ImageButton(skin, "minus");

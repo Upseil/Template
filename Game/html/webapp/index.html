@@ -9,39 +9,62 @@
     </head>
 
     <body>
-		<div id="clipboard-textarea" class="clipboard-helper"></div>
-		<div id="clipboard" class="clipboard-background" style="visibility:hidden" tabindex="0">
-			<div id="message" class="clipboard-message">Click anywhere to<br>copy to clipboard.</div>
+		<div id="export-helper" class="export-helper"></div>
+		<div id="export-dialog" class="dialog-background" style="visibility:hidden" tabindex="0">
+			<div id="message" class="export-message center-in-window">Click anywhere to<br>copy to clipboard.</div>
 		</div>
-		
+        
         <script type="text/javascript" src="html/html.nocache.js"></script>
+        <script type="text/javascript">
+        	var stylesheets = document.getElementsByTagName("link");
+        	for (var i = 0; i < stylesheets.length; i++) {
+        		var stylesheet = stylesheets[i];
+        		if (stylesheet.rel == "stylesheet" && stylesheet.href.includes("gwt")) {
+        			stylesheet.parentNode.removeChild(stylesheet);
+        			i--;
+        		}
+        	}
+        </script>
     </body>
 
     <script>
+    	function exportText(text) {
+    		document.getElementById("export-helper").innerHTML = text;
+    		showExportDialog();
+    	}
+    
+        function showExportDialog() {
+            var dialog = document.getElementById("export-dialog");
+            dialog.style.visibility = 'visible';
+            dialog.classList.add('fade-in');
+            dialog.focus();
+        }
+        
+        function hideExportDialog() {
+            var clipboard = document.getElementById("export-dialog");
+        	clipboard.style.visibility = 'hidden';
+            clipboard.classList.remove('fade-in');
+        }
+    
         function storeToSystemClipboard() {
             var selection = window.getSelection();
-            var textarea = document.getElementById("clipboard-textarea");
+            var textarea = document.getElementById("export-helper");
             var range = document.createRange();
             range.selectNodeContents(textarea);
             selection.removeAllRanges();
             selection.addRange(range);
             document.execCommand('copy');
             selection.removeAllRanges();
-        }	
-        
-        function hideClipboard() {
-            var clipboard = document.getElementById("clipboard");
-        	clipboard.style.visibility = 'hidden';
-            clipboard.classList.remove('fade-in');
         }
         
-        document.getElementById('clipboard').onclick = function() {
+        var exportDialog = document.getElementById('export-dialog');
+        exportDialog.onclick = function() {
         	storeToSystemClipboard();
-            hideClipboard();
+            hideExportDialog();
         };
-        document.getElementById('clipboard').onkeyup = function(e) {
+        exportDialog.onkeyup = function(e) {
             if (e.keyCode == 27) {
-                hideClipboard();
+                hideExportDialog();
             }
         };
     </script>
