@@ -1,5 +1,20 @@
 title=Game Title
 
-fixedSize=true
-width=1100
-height=700
+# width/height for static size
+# Overwrites any min/max values
+# Forces resizable to false
+#width=1100
+#height=825
+
+# Application can still be resized, for example if
+# the screen size is smaller than the preferred size
+# or when run in the browser
+resizable=true
+
+# Resizable within a range
+# Missing minWidth/minHeight default to 0
+# Missing prefWidth/prefHeight default to Integer.MAX_VALUE
+minWidth=700
+minHeight=525
+prefWidth=1800
+prefHeight=1350

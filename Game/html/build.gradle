@@ -115,9 +115,6 @@ task dist(dependsOn: [clean, compileGwt]) {
     }
 }
 
-tasks.compileGwt.dependsOn(addSource)
-tasks.draftCompileGwt.dependsOn(addSource)
-
 eclipse.project {
     name = workingTitle + "-Html"
 }
