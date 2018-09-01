@@ -6,9 +6,9 @@ title=Game Title
 #width=1100
 #height=825
 
-# Application can still be resized, for example if
-# the screen size is smaller than the preferred size
-# or when run in the browser
+# It's still possible that the application may be resized.
+# For example if run in the browser, which is always resizable
+# or if the screen size is smaller than the preferred size.
 resizable=true
 
 # Resizable within a range

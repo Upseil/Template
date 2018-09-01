@@ -117,6 +117,7 @@ public class HtmlLauncher extends GwtApplication {
     }-*/;
     
     private void setupResizing() {
+        Window.setMargin("0");
         Window.addResizeHandler(new ResizeHandler() {
             @Override
             public void onResize(ResizeEvent event) {

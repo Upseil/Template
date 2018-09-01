@@ -59,7 +59,8 @@ public class DesktopLauncher {
         savegameMapper.setCompressing(true);
         
         SerializationContext context = new SerializationContext(savegameMapper);
-        new LwjglApplication(new ResizeHook(new GameApplication(context, null, null)), configuration);
+        GameApplication game = new GameApplication(context, null, null);
+        new LwjglApplication(new ResizeHook(game), configuration);
     }
 
     private static void loadSizeInformation(Properties<GameInit> gameInit) {
