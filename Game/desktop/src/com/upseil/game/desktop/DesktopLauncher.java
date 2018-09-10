@@ -1,13 +1,6 @@
 package com.upseil.game.desktop;
 
-import static com.upseil.game.Constants.GameInit.Height;
-import static com.upseil.game.Constants.GameInit.MinHeight;
-import static com.upseil.game.Constants.GameInit.MinWidth;
-import static com.upseil.game.Constants.GameInit.PrefHeight;
-import static com.upseil.game.Constants.GameInit.PrefWidth;
-import static com.upseil.game.Constants.GameInit.Resizable;
-import static com.upseil.game.Constants.GameInit.Title;
-import static com.upseil.game.Constants.GameInit.Width;
+import static com.upseil.game.Constants.GameInit.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -47,7 +40,8 @@ public class DesktopLauncher {
         loadSizeInformation(gameInit);
         
         DisplayMode display = LwjglApplicationConfiguration.getDesktopDisplayMode();
-        calculateSize(display.width, display.height);
+        int windowPadding = gameInit.getInt(WindowPadding);
+        calculateSize(display.width - windowPadding, display.height - windowPadding);
         
         LwjglApplicationConfiguration configuration = new LwjglApplicationConfiguration();
         configuration.title = gameInit.get(Title);
