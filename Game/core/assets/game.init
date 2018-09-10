@@ -18,3 +18,7 @@ minWidth=700
 minHeight=525
 prefWidth=1800
 prefHeight=1350
+
+# Window padding in case the preferred size is greater
+# than the screen size
+windowPadding=100
